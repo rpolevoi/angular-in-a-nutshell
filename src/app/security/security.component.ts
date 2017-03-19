@@ -3,6 +3,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router} from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { DemoService } from '../demo.service';
+import 'rxjs/add/operator/pluck';
+import 'rxjs/add/operator/do';
 
 @Component({
   selector: 'security',
@@ -20,22 +22,44 @@ export class SecurityComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer,
               private route: ActivatedRoute,
               private router: Router,
-              private demoServ: DemoService) {}
+              private demoServ: DemoService) {
+                
+
+              route.data.pluck('firstdemo')
+                .subscribe(dem => this.updateUrl(<string> dem));
+
+              
+              }
 
   ngOnInit() {
-    
 
-    this.subscription = this.route.params
+  this.subscription = this.route.params
       .subscribe(params => {
-            let x:number = params['id'] ? +params['id'] : 0;
-            console.log("update with", x);
-            this.demoServ.fetchDemo(x)
-              .do(console.log)
-              .subscribe(dem => this.updateVideoUrl(dem));
+            if(params['id']) {         
+              this.demoServ.fetchDemo(+params['id'])
+              //.do(console.log)
+              .subscribe(dem => this.updateUrl(dem));
+            }
       });
+            
+           // {
+             /* this.demoServ.fetchFirstDemo()
+              .do(console.log)
+              .subscribe(dem => this.updateUrl(dem));}*/
+              
+              
+
+        
+            /*let x:number = params['id'] ? +params['id'] : 0;
+            console.log("update with", x);*/
+           // this.updateVideoUrl(this.demoServ.fetchDemo(x));
+          /*  this.demoServ.fetchDemo(x)
+              .do(console.log)
+              .subscribe(dem => this.updateVideoUrl(dem));*/
+     // });
   }
   
-  updateVideoUrl(id: string) {
+  updateUrl(id: string) {
  
     this.unsafeUrl = "https://embed.plnkr.co/" + id;
     this.safeUrl =

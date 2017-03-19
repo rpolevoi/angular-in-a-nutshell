@@ -8,6 +8,7 @@ import { routes } from './routes';
 import { AppComponent } from './app.component';
 import { SecurityComponent } from './security/security.component';
 import { DemoService } from './demo.service';
+import { DemoResolver } from './demo-resolver.service';
 
 @NgModule({
   declarations: [
@@ -19,10 +20,10 @@ import { DemoService } from './demo.service';
     FormsModule,
     HttpModule,
     MaterialModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { useHash: true }),
     
   ],
-  providers: [ DemoService ],
+  providers: [ DemoService, DemoResolver ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

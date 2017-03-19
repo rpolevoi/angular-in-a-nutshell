@@ -27,6 +27,10 @@ export class AppComponent {
 
     else this.router.navigate(['demo', 0]);
   }
+  
+  openMenu() {
+    console.log("openMenu CLICKED");
+  }
    
      ngOnDestroy() {
     
