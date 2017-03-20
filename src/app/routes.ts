@@ -8,12 +8,15 @@ export const routes: Routes = [
     path: '',
     component: SecurityComponent,
     resolve: {
-      firstdemo: DemoResolver
-  }
+      demo: DemoResolver
+    }
   },
   {
     path: 'demo/:id',
-    component: SecurityComponent
+    component: SecurityComponent,
+        resolve: {
+      demo: DemoResolver
+    }
   },
   {
     path: '**',

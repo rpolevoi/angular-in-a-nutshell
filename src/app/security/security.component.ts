@@ -25,7 +25,7 @@ export class SecurityComponent implements OnInit {
               private demoServ: DemoService) {
                 
 
-              route.data.pluck('firstdemo')
+              route.data.pluck('demo')
                 .subscribe(dem => this.updateUrl(<string> dem));
 
               
@@ -33,14 +33,14 @@ export class SecurityComponent implements OnInit {
 
   ngOnInit() {
 
-  this.subscription = this.route.params
-      .subscribe(params => {
-            if(params['id']) {         
-              this.demoServ.fetchDemo(+params['id'])
-              //.do(console.log)
-              .subscribe(dem => this.updateUrl(dem));
-            }
-      });
+  // this.subscription = this.route.params
+  //     .subscribe(params => {
+  //           if(params['id']) {         
+  //             this.demoServ.fetchDemo(+params['id'])
+  //             //.do(console.log)
+  //             .subscribe(dem => this.updateUrl(dem));
+  //           }
+  //     });
             
            // {
              /* this.demoServ.fetchFirstDemo()
@@ -67,9 +67,10 @@ export class SecurityComponent implements OnInit {
   }
   
    
-  ngOnDestroy() {
+/*  ngOnDestroy() {
     
-    this.subscription.unsubscribe();
-  }
+   this.subscription.unsubscribe();
+  }*/
+
 
 }
