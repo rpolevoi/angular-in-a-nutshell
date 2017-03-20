@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { DemoResolver } from './demo-resolver.service';
 
@@ -7,9 +7,8 @@ import { DemoResolver } from './demo-resolver.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   
-    //demos = ["first", "second", "third"];
     demos;
   
     constructor(
