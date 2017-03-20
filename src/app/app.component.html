@@ -1,7 +1,23 @@
-<h1>TEST</h1>
-<button (click)="next()">NEXT</button>
+ <md-sidenav-container>
+
+    <md-toolbar color="accent">
+        <button md-icon-button (click)="sidenav.toggle()">
+        <md-icon>menu</md-icon>
+        </button>
+        <span>ANGULAR in a NUTSHELL</span>
+    </md-toolbar>
+
+    <button md-button (click)="next()">Next</button>
+    
+<md-sidenav #sidenav mode="side" opened="false">
+    
+
+ <md-list>
+<a md-list-item routerLink="demo/{{idx}}" *ngFor="let el of demos; let idx = index">Link {{idx}}</a>
+</md-list>
+  </md-sidenav>
+
 
       <router-outlet></router-outlet>
       
-     
-
+</md-sidenav-container>

@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
 import { DemoResolver } from './demo-resolver.service';
 
 @Component({
@@ -10,14 +9,22 @@ import { DemoResolver } from './demo-resolver.service';
 })
 export class AppComponent {
   
-    subscription:Subscription;
+    //demos = ["first", "second", "third"];
+    demos;
   
     constructor(
               private demoServ: DemoResolver,
-              private router: Router) { }
+              private router: Router) {
+              this.demoServ.sub.subscribe(arr => this.demos = arr)
+              }
+              
+  ngOnInit(){
+    
+    console.log("on init", this.demoServ.demos);
+  }            
   
   next() {
-    
+    console.log("in next", this.demoServ.demos);
     console.log("current in next is", this.demoServ.current );
     console.log("current in next is", this.demoServ.length );
     if (this.demoServ.current < this.demoServ.length - 1) 
@@ -33,9 +40,5 @@ export class AppComponent {
     console.log("openMenu CLICKED");
   }
    
-     ngOnDestroy() {
-    
-    this.subscription.unsubscribe();
-  }
   
 } 

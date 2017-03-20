@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve} from '@angular/router';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/first';
 
@@ -10,10 +11,11 @@ import 'rxjs/add/operator/first';
 @Injectable()
 export class DemoResolver implements Resolve<any> {
     
-  test: "this is here now";
+        
   current: number;
   length: number;
   demos: string[];
+  sub:Subject<string[]> = new Subject();
 
     constructor(private http: Http) {}
 
@@ -28,6 +30,7 @@ export class DemoResolver implements Resolve<any> {
             .map(arr => {
                 let x = route.params['id'] ? +route.params['id'] : 0;
                 this.current = x;
+                this.sub.next(arr);
                 console.log("PARAMS ID CURRENT", this.current);
                 return arr[x];
             });
