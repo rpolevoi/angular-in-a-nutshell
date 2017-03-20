@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve} from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve} from '@angular/router';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
@@ -18,7 +18,7 @@ export class DemoResolver implements Resolve<any> {
     constructor(private http: Http) {}
 
     
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<string> {
+    resolve(route: ActivatedRouteSnapshot):Observable<string> {
         
         if(!length) {
             
@@ -30,17 +30,14 @@ export class DemoResolver implements Resolve<any> {
                 this.current = x;
                 console.log("PARAMS ID CURRENT", this.current);
                 return arr[x];
-            });//end of map and of chain
+            });
         }
         
-       else {  //figure out how to use the array that was saved here for everything else:
-            //probably needs to be stuffed in observable
-            //make subsject to lenght test.  FIX next() in root componet -- maybe oK now
+       else {  
             this.current = +route.params['id'];
             return Observable.of(this.demos[this.current]);
-            
         }
 
-    }//end of resolver()
+    }//end of resolve()
     
 }//end of class
