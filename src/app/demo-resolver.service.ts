@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/first';
+import { Demo } from './demo';
 
 
 
@@ -14,17 +15,17 @@ export class DemoResolver implements Resolve<any> {
         
   current: number;
   length: number;
-  demos: string[];
-  sub:Subject<string[]> = new Subject();
+  demos: Demo[];
+  sub:Subject<Demo[]> = new Subject();
 
     constructor(private http: Http) {}
 
     
-    resolve(route: ActivatedRouteSnapshot):Observable<string> {
+    resolve(route: ActivatedRouteSnapshot):Observable<Demo> {
         
         if(!length) {
             
-        return this.http.get('https://project-484930452002308078.firebaseio.com/demostrings.json')
+        return this.http.get('https://project-484930452002308078.firebaseio.com/demos.json')
             .map(response => response.json())
             .do(arr => {this.demos = arr; this.length = arr.length; console.log(this.demos);})
             .map(arr => {

@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { DemoResolver } from './demo-resolver.service';
+import { Demo } from './demo';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   
-    demos;
+    demos: Demo[];
   
     constructor(
               private demoServ: DemoResolver,
@@ -17,11 +18,7 @@ export class AppComponent implements OnInit {
               this.demoServ.sub.subscribe(arr => this.demos = arr)
               }
               
-  ngOnInit(){
-    
-    console.log("on init", this.demoServ.demos);
-  }            
-  
+
   next() {
     console.log("in next", this.demoServ.demos);
     console.log("current in next is", this.demoServ.current );

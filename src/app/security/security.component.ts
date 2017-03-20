@@ -25,7 +25,7 @@ export class SecurityComponent {
               private demoServ: DemoResolver) {
                 
               route.data.pluck('demo')
-                .subscribe(dem => this.updateUrl(<string> dem));
+                .subscribe(dem => this.updateUrl(<string> dem['url']));
               }
 
 
