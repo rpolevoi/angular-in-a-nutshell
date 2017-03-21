@@ -17,10 +17,12 @@ export class AppComponent {
     constructor(
               private demoServ: DemoResolver,
               private router: Router) {
-              this.demoServ.sub.subscribe(arr => this.demos = arr)
+              //this.demoServ.sub.subscribe(arr => this.demos = arr);
+              //THAT this below doesn't work is key insight
+              //this.demos = this.demoServ.demos;
+              window.setTimeout(()=> this.demos = this.demoServ.demos, 4000);
               }
               
-
   next() {
     console.log("in next", this.demoServ.demos);
     console.log("current in next is", this.demoServ.current );

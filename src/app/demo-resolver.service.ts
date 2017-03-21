@@ -16,7 +16,8 @@ export class DemoResolver implements Resolve<any> {
   current: number;
   length: number;
   demos: Demo[];
-  sub:Subject<Demo[]> = new Subject();
+  //not needed if delay!! 
+  //sub:Subject<Demo[]> = new Subject();
 
     constructor(private http: Http) {}
 
@@ -31,7 +32,8 @@ export class DemoResolver implements Resolve<any> {
             .map(arr => {
                 let x = route.params['id'] ? +route.params['id'] : 0;
                 this.current = x;
-                this.sub.next(arr);
+                //not needed to push because of delay in root component
+                //this.sub.next(arr);
                 console.log("PARAMS ID CURRENT", this.current);
                 return arr[x];
             });
