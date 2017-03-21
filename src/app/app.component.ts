@@ -11,6 +11,8 @@ import { Demo } from './demo';
 export class AppComponent {
   
     demos: Demo[];
+    nextDisabled:boolean;
+    backDisabled:boolean;
   
     constructor(
               private demoServ: DemoResolver,
@@ -24,12 +26,22 @@ export class AppComponent {
     console.log("current in next is", this.demoServ.current );
     console.log("current in next is", this.demoServ.length );
     if (this.demoServ.current < this.demoServ.length - 1) 
-        {
+        { this.nextDisabled = false;
           this.router.navigate(['demo', this.demoServ.current + 1]);
       }
+      
+    else this.nextDisabled = true;  
 
-
-    else this.router.navigate(['demo', 0]);
+  }
+  
+    back() {
+    if (this.demoServ.current > 0) 
+        {
+          this.backDisabled = false;
+          this.router.navigate(['demo', this.demoServ.current - 1]);
+      }
+      
+      else this.backDisabled = true;
   }
   
   openMenu() {
