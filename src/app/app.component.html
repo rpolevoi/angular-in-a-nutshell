@@ -1,3 +1,31 @@
-<h1>
-  {{title}}
-</h1>
+ 
+ <md-sidenav-container>
+
+    <md-toolbar color="accent">
+        <button md-icon-button (click)="sidenav.toggle()">
+        <md-icon>menu</md-icon>
+        </button>
+        <span>ANGULAR in a NUTSHELL</span>
+        <span class="example-fill-remaining-space"></span>
+    <button md-anchor [disabled]="nextDisabled" (click)="next()">Next</button>
+    <button md-anchor [disabled]="backDisabled" (click)="back()">Back</button>
+    </md-toolbar>
+
+<md-sidenav #sidenav mode="side" opened="false">
+ 
+  <md-list > 
+  
+    <md-list-item *ngFor="let el of demos; let idx = index">
+     <a md-line routerLink="demo/{{idx}}">
+     <span md-line>{{ el.title }}</span>    
+     <span md-line>{{el.blurb}}</span>
+     </a>
+   </md-list-item>
+   
+  </md-list>
+  
+  </md-sidenav>
+
+      <router-outlet></router-outlet>
+      
+</md-sidenav-container>
