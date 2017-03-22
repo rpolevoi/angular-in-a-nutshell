@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { DemoResolver } from './demo-resolver.service';
 import { Demo } from './demo';
+//import { Observable } from 'rxjs/Observable';
+//import { timer } from 'rxjs/add/observable/timer';
+import { Observable } from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -18,8 +21,8 @@ export class AppComponent {
               //this.demoServ.sub.subscribe(arr => this.demos = arr);
               //THAT this below doesn't work is key insight
               //this.demos = this.demoServ.demos;
-       
-              window.setTimeout(()=> this.demos = this.demoServ.demos, 4000);
+              Observable.timer(4000).subscribe(()=> this.demos = this.demoServ.demos);
+             // window.setTimeout(()=> this.demos = this.demoServ.demos, 4000);
               }
               
   get nextDisabled(): boolean { 

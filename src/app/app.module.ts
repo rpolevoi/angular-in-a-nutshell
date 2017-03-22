@@ -19,7 +19,7 @@ import { DemoResolver } from './demo-resolver.service';
     FormsModule,
     HttpModule,
     MaterialModule,
-    RouterModule.forRoot(routes, { useHash: true }),
+    RouterModule.forRoot(routes, { useHash: false }),
     
   ],
   providers: [ DemoResolver ],

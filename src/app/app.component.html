@@ -13,16 +13,16 @@
 
 <md-sidenav #sidenav mode="side" opened="false">
  
-  <md-list > 
+  <md-nav-list > 
   
     <md-list-item *ngFor="let el of demos; let idx = index">
      <a md-line routerLink="demo/{{idx}}">
      <span md-line>{{ el.title }}</span>    
-     <span md-line>{{el.blurb}}</span>
+     <span md-line class="secondary">{{el.blurb}}</span>
      </a>
    </md-list-item>
    
-  </md-list>
+  </md-nav-list>
   
   </md-sidenav>
 
