@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { DemoResolver } from './demo-resolver.service';
 import { Demo } from './demo';
-//import { Observable } from 'rxjs/Observable';
-//import { timer } from 'rxjs/add/observable/timer';
 import { Observable } from "rxjs";
+import { AngularFire, AuthProviders } from 'angularfire2';
 
 @Component({
   selector: 'app-root',
@@ -14,15 +13,24 @@ import { Observable } from "rxjs";
 export class AppComponent {
   
     demos: Demo[];
+    user = {};
+
   
     constructor(
+              public af: AngularFire,
               private demoServ: DemoResolver,
               private router: Router) {
-              //this.demoServ.sub.subscribe(arr => this.demos = arr);
-              //THAT this below doesn't work is key insight
-              //this.demos = this.demoServ.demos;
               Observable.timer(4000).subscribe(()=> this.demos = this.demoServ.demos);
-             // window.setTimeout(()=> this.demos = this.demoServ.demos, 4000);
+              this.af.auth.subscribe(user => {
+      if(user) {
+        // user logged in
+        this.user = user;
+      }
+      else {
+        // user not logged in
+        this.user = {};
+      }
+    });
               }
               
   get nextDisabled(): boolean { 
@@ -46,6 +54,16 @@ export class AppComponent {
     if (this.demoServ.current > 0) 
         { this.router.navigate(['demo', this.demoServ.current - 1]); }
   }
+  
+  login() {
+  this.af.auth.login({
+    provider: AuthProviders.Google
+  });
+}
+ 
+logout() {
+  this.af.auth.logout();
+}
 
    
   

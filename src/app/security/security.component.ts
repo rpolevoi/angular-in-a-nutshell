@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { DemoResolver } from '../demo-resolver.service';
 import 'rxjs/add/operator/pluck';
 import 'rxjs/add/operator/do';
+import { AngularFire, AuthProviders } from 'angularfire2';
 
 @Component({
   selector: 'security',
@@ -16,16 +17,32 @@ export class SecurityComponent {
   unsafeUrl: string;
   safeUrl: SafeResourceUrl;
   id:string;
+  flag = true;
   
   subscription:Subscription;
 
   constructor(private sanitizer: DomSanitizer,
               private route: ActivatedRoute,
               private router: Router,
-              private demoServ: DemoResolver) {
+              private demoServ: DemoResolver,
+              public af: AngularFire) {
                 
               route.data.pluck('demo')
                 .subscribe(dem => this.updateUrl(<string> dem['url']));
+                
+              this.af.auth.subscribe(user => {
+      if(user) {
+        // user logged in
+        this.flag = false;
+
+      }
+      else {
+        // user not logged in
+        this.flag = true;
+
+      }
+    });  
+                
               }
 
 
