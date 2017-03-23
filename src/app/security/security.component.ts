@@ -17,7 +17,7 @@ export class SecurityComponent {
   unsafeUrl: string;
   safeUrl: SafeResourceUrl;
   id:string;
-  flag = true;
+  flag = 'none';
   
   subscription:Subscription;
 
@@ -33,12 +33,14 @@ export class SecurityComponent {
               this.af.auth.subscribe(user => {
       if(user) {
         // user logged in
-        this.flag = false;
+        console.log("USER!!")
+        this.flag = 'block';
 
       }
       else {
         // user not logged in
-        this.flag = true;
+        console.log("NONE!!")
+        this.flag = 'none';
 
       }
     });  
